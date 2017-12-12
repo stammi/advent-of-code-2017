@@ -22,36 +22,35 @@
         shifted (shift input shft)]
     (reduce + (map #(if (= %1 %2) (Long. (str %1)) 0) input shifted))))
 
+(defn captcha [input]
+  (foo input 1))
+
 (deftest day1-part1
   (testing "1122"
-    (is (= 3 (foo [1 1 2 2] 1))))
+    (is (= 3 (captcha [1 1 2 2]))))
   (testing "1111"
-    (is (= 4 (foo [1 1 1 1] 1))))
+    (is (= 4 (captcha [1 1 1 1]))))
   (testing "1234"
-    (is (= 0 (foo [1 2 3 4] 1))))
+    (is (= 0 (captcha [1 2 3 4]))))
   (testing "91212129"
-    (is (= 9 (foo [9 1 2 1 2 1 2 9] 1))))
+    (is (= 9 (captcha [9 1 2 1 2 1 2 9]))))
   (testing "the thing"
-    (is (= 1089 (foo input 1)))))
+    (is (= 1089 (captcha input)))))
 
-
-
-(defn bar [input]
+(defn captcha-halfway [input]
   (foo input (/ (count input) 2)))
 
 (deftest day1-part2
-  (testing "1212 "
-    (is (= 6 (bar "1212"))))
-  (testing "1221 "
-    (is (= 0 (bar "1221"))))
-  (testing "123425 "
-    (is (= 4 (bar "123425"))))
-  (testing "123123 "
-    (is (= 12 (bar "123123"))))
-  (testing "12131415 "
-    (is (= 4 (bar "12131415"))))
+  (testing "1212"
+    (is (= 6 (captcha-halfway "1212"))))
+  (testing "1221"
+    (is (= 0 (captcha-halfway "1221"))))
+  (testing "123425"
+    (is (= 4 (captcha-halfway "123425"))))
+  (testing "123123"
+    (is (= 12 (captcha-halfway "123123"))))
+  (testing "12131415"
+    (is (= 4 (captcha-halfway "12131415"))))
   (testing "the thing"
-    (is (= 1156 (bar input)))))
-
-
+    (is (= 1156 (captcha-halfway input)))))
 
