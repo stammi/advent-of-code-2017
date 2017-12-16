@@ -1,12 +1,6 @@
 (ns clj-advent.day4-test
   (:require [clojure.test :refer :all]
             [clojure.string :as str]))
-
-
-(defn no-doubles? [phrase]
-  (let [splitted (str/split phrase #"\h")]
-    (= (count splitted) (count (into #{} splitted)))))
-
 (def input ["una bokpr ftz ryw nau yknf fguaczl anu"
             "tvay wvco bcoblpt fwzg sfsys zvuqll mcbhwz ovcw fgdy"
             "ynsocz vid rfmsy essqt fpbjvvq sldje qfpvjvb"
@@ -519,6 +513,10 @@
             "huo esajup ouj oju ujo"
             "eeeu hwvsk jfkmds okhi pogskfm itdlbll"
             "lpyubo dylpfb iehwug decj ntidy cuygyg lalkb iutu oxgm imn"])
+(defn no-doubles? [phrase]
+  (let [splitted (str/split phrase #"\h")]
+    (= (count splitted) (count (into #{} splitted)))))
+
 
 (deftest no-double-words
   (testing "aa bb cc dd ee"
@@ -529,3 +527,23 @@
     (is (= true (no-doubles? "aa bb cc dd aaa"))))
   (testing "the thing"
     (is (= 477 (count (filter true? (map no-doubles? input)))))))
+
+(defn also-no-anagrams? [phrase]
+  (let [splitted (str/split phrase #"\h")
+        freqs (map frequencies splitted)]
+    (= (count splitted) (count (into #{} freqs)))))
+
+(deftest no-anagrams
+  (testing "abcde fghij"
+    (is (= true (also-no-anagrams? "abcde fghij"))))
+  (testing "abcde xyz ecdab"
+    (is (= false (also-no-anagrams? "abcde xyz ecdab"))))
+  (testing "a ab abc abd abf abj"
+    (is (= true (also-no-anagrams? "a ab abc abd abf abj"))))
+  (testing "iiii oiii ooii oooi oooo"
+    (is (= true (also-no-anagrams? "iiii oiii ooii oooi oooo"))))
+  (testing "oiii ioii iioi iiio"
+    (is (= false (also-no-anagrams? "oiii ioii iioi iiio"))))
+  (testing "the thing"
+    (is (= 167 (count (filter true? (map also-no-anagrams? input)))))))
+
