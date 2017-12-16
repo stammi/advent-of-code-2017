@@ -65,32 +65,3 @@
                           [3 8 6 5]]))))
   (testing "the thing"
     (is (= 320 (checksum-2 input)))))
-
-
-[17 16 15 14 13]
-[18 5 4 3 12]
-[19 6 1 2 11]
-[20 7 8 9 10]
-[21 22 23]
-
-
-(defn rad-dist [x]
-  (if (<= x (* 1 1))
-    0
-    (if (<= x (* 3 3))
-      1
-      (if (<= x (* 4 4))
-        2)
-
-      )
-
-    ))
-
-(deftest radial-dist
-  (is (= 0 (rad-dist 1)))
-  (is (= 1 (rad-dist 2)))
-  (is (= 1 (rad-dist 9)))
-  (is (= 1 (rad-dist 4)))
-  (is (= 2 (rad-dist 12)))
-  (is (= 2 (rad-dist 20)))
-  )

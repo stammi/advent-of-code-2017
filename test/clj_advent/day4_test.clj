@@ -517,13 +517,10 @@
   (let [splitted (str/split phrase #"\h")]
     (= (count splitted) (count (into #{} splitted)))))
 
-
 (deftest no-double-words
-  (testing "aa bb cc dd ee"
-    (is (= true (no-doubles? "aa bb cc dd ee"))))
-  (testing "aa bb cc dd aa"
-    (is (= false (no-doubles? "aa bb cc dd aa"))))
-  (testing "aa bb cc dd aaa"
+  (testing "the examples"
+    (is (= true (no-doubles? "aa bb cc dd ee")))
+    (is (= false (no-doubles? "aa bb cc dd aa")))
     (is (= true (no-doubles? "aa bb cc dd aaa"))))
   (testing "the thing"
     (is (= 477 (count (filter true? (map no-doubles? input)))))))
@@ -534,15 +531,11 @@
     (= (count splitted) (count (into #{} freqs)))))
 
 (deftest no-anagrams
-  (testing "abcde fghij"
-    (is (= true (also-no-anagrams? "abcde fghij"))))
-  (testing "abcde xyz ecdab"
-    (is (= false (also-no-anagrams? "abcde xyz ecdab"))))
-  (testing "a ab abc abd abf abj"
-    (is (= true (also-no-anagrams? "a ab abc abd abf abj"))))
-  (testing "iiii oiii ooii oooi oooo"
-    (is (= true (also-no-anagrams? "iiii oiii ooii oooi oooo"))))
-  (testing "oiii ioii iioi iiio"
+  (testing "the examples"
+    (is (= true (also-no-anagrams? "abcde fghij")))
+    (is (= false (also-no-anagrams? "abcde xyz ecdab")))
+    (is (= true (also-no-anagrams? "a ab abc abd abf abj")))
+    (is (= true (also-no-anagrams? "iiii oiii ooii oooi oooo")))
     (is (= false (also-no-anagrams? "oiii ioii iioi iiio"))))
   (testing "the thing"
     (is (= 167 (count (filter true? (map also-no-anagrams? input)))))))

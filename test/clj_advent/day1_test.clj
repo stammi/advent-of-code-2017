@@ -23,13 +23,10 @@
   (foo input 1))
 
 (deftest day1-part1
-  (testing "1122"
-    (is (= 3 (captcha "1122"))))
-  (testing "1111"
-    (is (= 4 (captcha "1111"))))
-  (testing "1234"
-    (is (= 0 (captcha "1234"))))
-  (testing "91212129"
+  (testing "the examples"
+    (is (= 3 (captcha "1122")))
+    (is (= 4 (captcha "1111")))
+    (is (= 0 (captcha "1234")))
     (is (= 9 (captcha "91212129"))))
   (testing "the thing"
     (is (= 1089 (captcha input)))))
@@ -38,15 +35,11 @@
   (foo input (/ (count input) 2)))
 
 (deftest day1-part2
-  (testing "1212"
-    (is (= 6 (captcha-halfway "1212"))))
-  (testing "1221"
-    (is (= 0 (captcha-halfway "1221"))))
-  (testing "123425"
-    (is (= 4 (captcha-halfway "123425"))))
-  (testing "123123"
-    (is (= 12 (captcha-halfway "123123"))))
-  (testing "12131415"
+  (testing "the examples"
+    (is (= 6 (captcha-halfway "1212")))
+    (is (= 0 (captcha-halfway "1221")))
+    (is (= 4 (captcha-halfway "123425")))
+    (is (= 12 (captcha-halfway "123123")))
     (is (= 4 (captcha-halfway "12131415"))))
   (testing "the thing"
     (is (= 1156 (captcha-halfway input)))))
