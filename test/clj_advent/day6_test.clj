@@ -23,14 +23,14 @@
                  (dec v)))))))
 
 (defn all-steps [in]
-  (loop [history #{}
+  (loop [history []
          i in]
-    (let [step (one-step i)
-          current (:current step)]
-      (if (contains? history current)
-        step
-        (recur (conj history current)
-               step)))))
+    (let [step (one-step i)]
+      (let [previous (first (filter #(= (:current step) (:current %)) history))]
+        (if previous
+          (assoc step :loopsize (- (:stepno step) (:stepno previous)) )
+          (recur (conj history step)
+                 step))))))
 
 (deftest redistributing-memory
   (testing "the examples"
@@ -46,9 +46,11 @@
             (let [step5 (one-step step4)]
               (is (= [2 4 1 2] (:current step5)))
               (is (= 5 (:stepno step5))))))))
-    (is (= 5 (:stepno (all-steps {:stepno 0 :current [0 2 7 0]}))))
-    )
+    (let [after-all (all-steps {:stepno 0 :current [0 2 7 0]})]
+      (is (= 5 (:stepno after-all)))
+      (is (= 4 (:loopsize after-all)))))
 
   (testing "the thing"
     (let [result (all-steps input)]
-      (is (= 12841 (:stepno result))))))
+      (is (= 12841 (:stepno result)))
+      (is (= 8038 (:loopsize result))))))
