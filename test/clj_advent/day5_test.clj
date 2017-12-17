@@ -48,16 +48,15 @@
                       :instructions [2 4 0 1 -2]} step4))
               (let [step5 (step std-update-fn step4)]
                 (is (= {:stepno    5
-                        :finished? :finished!
-                        } step5))))))))
+                        :finished? :finished!} step5))))))))
     (testing "the thing"
       (is (= 387096
              (walk-maze std-update-fn input))))))
 
 (defn strange-update-fn [position current]
-  (if (>= current 3)
-    (dec current)
-    (inc current)))
+  ((if (>= current 3)
+     dec
+     inc) current))
 
 (deftest day5-star2
   (testing "the thing"
