@@ -27,8 +27,14 @@
         registers))))
 
 (defn apply-instructions [registers instructions]
-  (let [ops (map read-instruction instructions)]
-    (reduce (fn [agg f] (f agg)) registers ops)))
+  (let [ops (map read-instruction instructions)
+        starter {:registers registers
+              :max Integer/MIN_VALUE}]
+    (reduce (fn [agg f]
+              (let [new-regs (f (:registers agg))
+                    max-reg (if (empty? new-regs) Integer/MIN_VALUE (reduce max (vals new-regs)))]
+                {:registers new-regs
+                 :max (max (:max agg) max-reg)})) starter ops)))
 
 (deftest processing-instructions
   (testing "teh example"
@@ -38,9 +44,10 @@
                         "c inc -20 if c == 10"]]
       (is (= {"a" 1
               "c" -10}
-             (apply-instructions {} instructions)))))
+             (:registers (apply-instructions {} instructions))))))
 
   (testing "the thing"
     (let [instructions (-> (slurp "test-resources/day8.input")
                            (str/split #"\n"))]
-      (is (= 5752 (reduce max (vals (apply-instructions {} instructions))))))))
+      (is (= 5752 (reduce max (vals (:registers (apply-instructions {} instructions))))))
+      (is (= 6366 (:max (apply-instructions {} instructions)))))))
