@@ -2,11 +2,6 @@
   (:require [clojure.test :refer :all]
             [clojure.string :as str]))
 
-; b inc 5 if a > 1
-; a inc 1 if b < 5
-; c dec -10 if a >= 1
-; c inc -20 if c == 10
-
 (defn read-instruction [instruction]
   (let [[action condition] (str/split instruction #" if ")
         [action-reg action-op action-val] (str/split action #" ")
